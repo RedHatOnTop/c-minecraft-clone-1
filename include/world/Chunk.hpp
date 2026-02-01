@@ -15,6 +15,7 @@ public:
 
     void setBlock(int x, int y, int z, Block block);
     Block getBlock(int x, int y, int z) const;
+    void setLight(int x, int y, int z, uint8_t sky, uint8_t block);
 
     glm::ivec2 getPosition() const { return m_position; }
 

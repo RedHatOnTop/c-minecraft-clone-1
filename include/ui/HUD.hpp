@@ -9,7 +9,7 @@ public:
     HUD(FontRenderer& font, GUIRenderer& gui);
     ~HUD();
 
-    void render(const Player& player, int fps);
+    void render(const Player& player, int fps, bool inventoryOpen);
 
 private:
     FontRenderer& m_font;
@@ -18,4 +18,5 @@ private:
     void renderCrosshair();
     void renderHotbar(const Player& player);
     void renderDebug(const Player& player, int fps);
+    void renderInventory(const Player& player);
 };

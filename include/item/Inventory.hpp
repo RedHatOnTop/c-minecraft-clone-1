@@ -13,6 +13,7 @@ public:
     
     bool addItem(ItemStack& stack);
     void removeStack(int slot, int count);
+    int size() const { return (int)m_slots.size(); }
 
 private:
     std::vector<ItemStack> m_slots;

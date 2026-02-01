@@ -10,6 +10,7 @@ struct ChunkVertex {
     glm::vec3 position;
     glm::vec2 texCoord;
     float ao;
+    float light;
 };
 
 class ChunkMesh {
@@ -19,10 +20,11 @@ public:
 
     void generate(const Chunk& chunk, const TextureAtlas& atlas);
     void render();
+    void renderTransparent();
 
 private:
-    unsigned int m_VAO, m_VBO;
-    int m_vertexCount;
+    unsigned int m_VAO, m_VBO, m_transVAO, m_transVBO;
+    int m_vertexCount, m_transVertexCount;
 
-    void addFace(std::vector<ChunkVertex>& vertices, glm::vec3 pos, int face, const TextureInfo& tex);
+    void addFace(std::vector<ChunkVertex>& vertices, glm::vec3 pos, int face, const TextureInfo& tex, float light);
 };

@@ -29,3 +29,16 @@ struct Block {
     Block() : id(Blocks::AIR), metadata(0), light(0) {}
     Block(BlockID id, uint8_t meta = 0) : id(id), metadata(meta), light(0) {}
 };
+
+inline uint8_t getSkyLight(const Block& b) { return (b.light >> 4) & 0x0F; }
+inline uint8_t getBlockLight(const Block& b) { return b.light & 0x0F; }
+inline void setSkyLight(Block& b, uint8_t sky) { b.light = (uint8_t)((b.light & 0x0F) | ((sky & 0x0F) << 4)); }
+inline void setBlockLight(Block& b, uint8_t block) { b.light = (uint8_t)((b.light & 0xF0) | (block & 0x0F)); }
+
+inline bool isBlockTransparent(BlockID id) {
+    return id == Blocks::AIR || id == Blocks::WATER || id == Blocks::LEAVES;
+}
+
+inline bool isBlockOpaque(BlockID id) {
+    return !isBlockTransparent(id);
+}

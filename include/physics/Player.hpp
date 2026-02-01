@@ -4,28 +4,22 @@
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
 #include "render/Camera.hpp"
-#include "physics/AABB.hpp"
-#include "world/World.hpp"
+#include "entity/Entity.hpp"
+#include "item/Inventory.hpp"
 
-class Player {
+class Player : public Entity {
 public:
-    glm::vec3 position;
-    glm::vec3 velocity;
     Camera camera;
+    int selectedSlot = 0;
+    Inventory inventory;
     
     Player(glm::vec3 startPos);
     
-    int selectedSlot = 0;
-
-    void update(float deltaTime, World& world);
+    void update(float deltaTime, World& world) override;
     void handleInput(GLFWwindow* window, float deltaTime);
-    
-    AABB getAABB() const;
+
+    bool addToInventory(ItemStack& stack);
 
 private:
-    bool m_onGround;
     float m_eyeHeight;
-    glm::vec3 m_dimensions;
-
-    void applyPhysics(float deltaTime, World& world);
 };

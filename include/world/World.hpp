@@ -24,6 +24,8 @@ public:
     void loadChunk(int x, int z);
     void unloadChunk(int x, int z);
 
+    void updateLiquids();
+
     const std::map<glm::ivec2, std::shared_ptr<Chunk>, IVec2Compare>& getChunks() const { return m_chunks; }
 
 private:

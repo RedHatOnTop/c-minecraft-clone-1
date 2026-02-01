@@ -15,7 +15,10 @@ def create_block(name, color):
 create_block("stone", (128, 128, 128))
 create_block("dirt", (134, 96, 67))
 create_block("grass_top", (124, 189, 110))
-create_block("grass_side", (134, 96, 67)) # Simplified
+create_block("grass_side", (134, 96, 67))
+create_block("log_top", (100, 80, 50))
+create_block("log_side", (80, 60, 40))
+create_block("leaves", (50, 150, 50))
 
 # Generate ascii.png (128x128 grid of 8x8 characters)
 font_img = Image.new("RGBA", (128, 128), (0, 0, 0, 0))

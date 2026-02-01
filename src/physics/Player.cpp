@@ -1,15 +1,30 @@
 #include "physics/Player.hpp"
+#include "util/SoundManager.hpp"
 #include <GLFW/glfw3.h>
 #include <algorithm>
 
 Player::Player(glm::vec3 startPos) 
-    : position(startPos), velocity(0.0f), camera(startPos), m_onGround(false), m_eyeHeight(1.62f), m_dimensions(0.6f, 1.8f, 0.6f) {
+    : Entity(startPos, glm::vec3(0.6f, 1.8f, 0.6f)), camera(startPos), inventory(36), m_eyeHeight(1.62f) {
     camera.Position = position + glm::vec3(0, m_eyeHeight, 0);
 }
 
 void Player::update(float deltaTime, World& world) {
+    glm::vec3 oldPos = position;
     applyPhysics(deltaTime, world);
     camera.Position = position + glm::vec3(0, m_eyeHeight, 0);
+
+    // Footstep sounds
+    if (onGround && (std::abs(velocity.x) > 0.1f || std::abs(velocity.z) > 0.1f)) {
+        static float stepTimer = 0;
+        stepTimer += deltaTime;
+        if (stepTimer > 0.35f) {
+            Block b = world.getBlock((int)std::floor(position.x), (int)std::floor(position.y - 0.1f), (int)std::floor(position.z));
+            if (b.id == Blocks::GRASS) SoundManager::playSound("step_grass");
+            else if (b.id == Blocks::DIRT) SoundManager::playSound("step_dirt");
+            else SoundManager::playSound("step_stone");
+            stepTimer = 0;
+        }
+    }
 }
 
 void Player::handleInput(GLFWwindow* window, float deltaTime) {
@@ -39,28 +54,11 @@ void Player::handleInput(GLFWwindow* window, float deltaTime) {
         velocity.z = 0;
     }
 
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && m_onGround) {
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && onGround) {
         velocity.y = 8.0f; // Basic jump
     }
 }
 
-void Player::applyPhysics(float deltaTime, World& world) {
-    velocity.y -= 24.0f * deltaTime; // Gravity
-    
-    glm::vec3 nextPos = position + velocity * deltaTime;
-    
-    // Very simplified collision: just check if the feet/head are in a solid block
-    // In a real implementation, we'd check all blocks the AABB intersects
-    if (world.getBlock((int)std::floor(nextPos.x), (int)std::floor(nextPos.y), (int)std::floor(nextPos.z)).id != Blocks::AIR) {
-        velocity.y = 0;
-        m_onGround = true;
-    } else {
-        m_onGround = false;
-        position = nextPos;
-    }
-}
-
-AABB Player::getAABB() const {
-    return AABB(position - glm::vec3(m_dimensions.x/2, 0, m_dimensions.z/2), 
-                position + glm::vec3(m_dimensions.x/2, m_dimensions.y, m_dimensions.z/2));
+bool Player::addToInventory(ItemStack& stack) {
+    return inventory.addItem(stack);
 }
