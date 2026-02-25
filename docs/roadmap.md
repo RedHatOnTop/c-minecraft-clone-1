@@ -151,6 +151,8 @@ Completion note:
 - Interactive screenshot/video capture remains pending and is tracked in capture manifests.
 
 #### Subphase 0.3 - Gap Ranking and Lock (2026-03-06 to 2026-03-08)
+Status: Completed on February 26, 2026 (executed ahead of schedule)
+
 Focus:
 - Rank top parity gaps and lock the next-phase priorities.
 
@@ -161,6 +163,10 @@ Deliverables:
 Quality gates:
 - `QG-DOC-0.3.1`: Top-20 gaps are severity-ranked and traceable to roadmap phases.
 - `QG-PARITY-0.3.2`: Baseline score is published and reproducible.
+
+Completion note:
+- Baseline score published as `15.87 / 100` with reproducible scoring input and output logs.
+- Top-20 gap backlog is locked with target phase/subphase and owner mapping.
 
 Phase exit criteria:
 - Baseline matrix and report approved.

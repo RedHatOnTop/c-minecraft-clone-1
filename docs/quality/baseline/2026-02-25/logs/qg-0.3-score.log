@@ -1,0 +1,35 @@
+# QG 0.3 Score Log - 2026-02-26T00:03:53.4531012+09:00
+Input=docs/quality/baseline/2026-02-25/data/baseline-ratings-2026-03-08.csv
+Rows=39
+
+[Domain Scores]
+Domain=A AvgScore0to5=1 WeightedScore=4.4
+Domain=B AvgScore0to5=0.6667 WeightedScore=3.73
+Domain=C AvgScore0to5=0.6667 WeightedScore=2.4
+Domain=D AvgScore0to5=0.6667 WeightedScore=2.13
+Domain=E AvgScore0to5=0.4 WeightedScore=0.64
+Domain=F AvgScore0to5=1.6 WeightedScore=2.56
+
+BaselineTotalScore=15.87
+
+[Top20GapItems]
+ID=B-02 Domain=B GapPoints=28 TargetPhase=2 TargetSubphase=2.1 Owner=WS-GAME
+ID=B-03 Domain=B GapPoints=28 TargetPhase=2 TargetSubphase=2.1 Owner=WS-GAME
+ID=B-05 Domain=B GapPoints=28 TargetPhase=2 TargetSubphase=2.2 Owner=WS-GAME
+ID=B-06 Domain=B GapPoints=28 TargetPhase=2 TargetSubphase=2.2 Owner=WS-GAME
+ID=B-08 Domain=B GapPoints=28 TargetPhase=2 TargetSubphase=2.2 Owner=WS-GAME
+ID=B-09 Domain=B GapPoints=28 TargetPhase=2 TargetSubphase=2.3 Owner=WS-GAME
+ID=A-02 Domain=A GapPoints=22 TargetPhase=5 TargetSubphase=5.1 Owner=WS-RENDER
+ID=A-03 Domain=A GapPoints=22 TargetPhase=5 TargetSubphase=5.1 Owner=WS-RENDER
+ID=A-05 Domain=A GapPoints=22 TargetPhase=5 TargetSubphase=5.2 Owner=WS-RENDER
+ID=A-06 Domain=A GapPoints=22 TargetPhase=5 TargetSubphase=5.2 Owner=WS-RENDER
+ID=A-07 Domain=A GapPoints=22 TargetPhase=5 TargetSubphase=5.3 Owner=WS-RENDER
+ID=C-03 Domain=C GapPoints=18 TargetPhase=7 TargetSubphase=7.1 Owner=WS-GAME
+ID=C-04 Domain=C GapPoints=18 TargetPhase=3 TargetSubphase=3.2 Owner=WS-GAME
+ID=C-05 Domain=C GapPoints=18 TargetPhase=7 TargetSubphase=7.2 Owner=WS-GAME
+ID=C-06 Domain=C GapPoints=18 TargetPhase=7 TargetSubphase=7.2 Owner=WS-GAME
+ID=B-01 Domain=B GapPoints=16.8 TargetPhase=2 TargetSubphase=2.1 Owner=WS-GAME
+ID=B-04 Domain=B GapPoints=16.8 TargetPhase=2 TargetSubphase=2.1 Owner=WS-GAME
+ID=B-07 Domain=B GapPoints=16.8 TargetPhase=2 TargetSubphase=2.2 Owner=WS-GAME
+ID=D-01 Domain=D GapPoints=16 TargetPhase=4 TargetSubphase=4.1 Owner=WS-WORLD
+ID=D-02 Domain=D GapPoints=16 TargetPhase=4 TargetSubphase=4.1 Owner=WS-WORLD

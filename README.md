@@ -49,8 +49,11 @@ A high-fidelity Minecraft 1.8.9 clone built from scratch using C++20 and OpenGL 
 - `docs/quality/`: Defect ledger and quality notes.
 - `docs/quality/parity-matrix-v1.md`: Parity item matrix and baseline item ratings.
 - `docs/quality/scoring-handbook.md`: Scoring rules and item interpretation examples.
+- `docs/quality/baseline-report-2026-03-08.md`: Published baseline score and interpretation.
+- `docs/quality/top-20-gap-backlog-2026-03-08.md`: Locked top-20 parity gaps with phase/owner mapping.
 - `docs/quality/subphase-0.1-qg-report.md`: Subphase 0.1 quality-gate verification.
 - `docs/quality/subphase-0.2-qg-report.md`: Subphase 0.2 quality-gate verification.
+- `docs/quality/subphase-0.3-qg-report.md`: Subphase 0.3 quality-gate verification.
 - `docs/quality/baseline/`: Baseline scenario evidence package (logs, manifests, indexes).
 - `docs/roadmap.md`: Project roadmap and milestone plan.
 - `external/`: Third-party header-only libraries.

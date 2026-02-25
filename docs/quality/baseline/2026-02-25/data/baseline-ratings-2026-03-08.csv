@@ -1,0 +1,40 @@
+id,domain,domain_weight,item,rating_label,rating_score,target_phase,target_subphase,owner_stream,evidence_ref
+A-01,A,22,Block texture fidelity coverage,Partial,2,5,5.3,WS-RENDER,docs/quality/baseline/2026-02-25/logs/asset-presence.log
+A-02,A,22,Block model geometry alignment,N/A,0,5,5.1,WS-RENDER,docs/quality/baseline/2026-02-25/captures/screenshot-manifest.md
+A-03,A,22,Lighting step accuracy,N/A,0,5,5.1,WS-RENDER,docs/quality/baseline/2026-02-25/captures/screenshot-manifest.md
+A-04,A,22,Transparent sorting stability,Match,4,5,5.2,WS-RENDER,docs/quality/baseline/2026-02-25/logs/test-exe.log
+A-05,A,22,Fog curve behavior,N/A,0,5,5.2,WS-RENDER,docs/quality/baseline/2026-02-25/captures/video-manifest.md
+A-06,A,22,Time-of-day sky transition,N/A,0,5,5.2,WS-RENDER,docs/quality/baseline/2026-02-25/captures/video-manifest.md
+A-07,A,22,Particle event coverage,N/A,0,5,5.3,WS-RENDER,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+A-08,A,22,First-person camera feel,Partial,2,5,5.3,WS-RENDER,docs/quality/baseline/2026-02-25/logs/source-signals.log
+B-01,B,28,Walk and sprint velocity profile,Partial,2,2,2.1,WS-GAME,docs/quality/baseline/2026-02-25/logs/source-signals.log
+B-02,B,28,Jump apex and fall timing,N/A,0,2,2.1,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+B-03,B,28,Ground friction deceleration,N/A,0,2,2.1,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+B-04,B,28,AABB collision resolution,Partial,2,2,2.1,WS-GAME,docs/quality/baseline/2026-02-25/logs/test-exe.log
+B-05,B,28,Block break duration and tool modifiers,N/A,0,2,2.2,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+B-06,B,28,Block placement validity rules,N/A,0,2,2.2,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+B-07,B,28,Inventory slot transfer semantics,Partial,2,2,2.2,WS-GAME,docs/quality/baseline/2026-02-25/logs/test-exe.log
+B-08,B,28,Crafting recipe resolution,N/A,0,2,2.2,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+B-09,B,28,Smelting state transitions,N/A,0,2,2.3,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+C-01,C,18,Core block set availability,Partial,2,7,7.1,WS-GAME,docs/quality/baseline/2026-02-25/logs/asset-presence.log
+C-02,C,18,Core item and tool set availability,Partial,2,7,7.1,WS-GAME,docs/quality/baseline/2026-02-25/logs/test-exe.log
+C-03,C,18,Armor and durability baseline,N/A,0,7,7.1,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+C-04,C,18,Core hostile mob set availability,N/A,0,3,3.2,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+C-05,C,18,Utility block set availability,N/A,0,7,7.2,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+C-06,C,18,Core status-effect set availability,N/A,0,7,7.2,WS-GAME,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+D-01,D,16,Biome distribution quality,N/A,0,4,4.1,WS-WORLD,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+D-02,D,16,Terrain height profile,N/A,0,4,4.1,WS-WORLD,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+D-03,D,16,Cave density profile,N/A,0,4,4.1,WS-WORLD,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+D-04,D,16,Ore spawn frequency profile,N/A,0,4,4.1,WS-WORLD,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+D-05,D,16,Structure generation availability,N/A,0,4,4.2,WS-WORLD,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+D-06,D,16,Save/load progression continuity,Match,4,4,4.3,WS-WORLD,docs/quality/baseline/2026-02-25/logs/test-exe.log
+E-01,E,8,Main/pause/options flow completion,Partial,2,6,6.1,WS-UXAUDIO,docs/quality/baseline/2026-02-25/captures/screenshot-manifest.md
+E-02,E,8,HUD element completeness,N/A,0,6,6.2,WS-UXAUDIO,docs/quality/baseline/2026-02-25/captures/screenshot-manifest.md
+E-03,E,8,Keybinding persistence,N/A,0,6,6.1,WS-UXAUDIO,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+E-04,E,8,Mouse sensitivity and invert behavior,N/A,0,6,6.2,WS-UXAUDIO,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+E-05,E,8,Audio category routing and volume,N/A,0,6,6.3,WS-UXAUDIO,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+F-01,F,8,Required CTest target pass rate,Match,4,1,1.2,WS-QA,docs/quality/baseline/2026-02-25/logs/ctest-release.log
+F-02,F,8,Crash-free 30-minute session rate,N/A,0,8,8.3,WS-QA,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+F-03,F,8,Save/load integrity loop,Match,4,4,4.3,WS-WORLD,docs/quality/baseline/2026-02-25/logs/test-exe.log
+F-04,F,8,Frame-time budget p95,N/A,0,8,8.1,WS-QA,docs/quality/baseline/2026-02-25/scenario-suite-results.md
+F-05,F,8,Memory growth in 2-hour session,N/A,0,8,8.2,WS-QA,docs/quality/baseline/2026-02-25/scenario-suite-results.md
