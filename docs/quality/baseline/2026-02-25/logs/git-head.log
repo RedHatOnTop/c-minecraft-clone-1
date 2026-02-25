@@ -1,0 +1,48 @@
+# Git Head - 2026-02-25T23:49:25.9182391+09:00
+c7bd46a31c3d5acf197ee6ea1f0dcc04615a0734
+## main...origin/main [ahead 1]
+ M .gitignore
+ M CMakeLists.txt
+ M README.md
+ M assets/minecraft/shaders/basic.frag
+ M assets/minecraft/shaders/basic.vert
+ M assets/minecraft/shaders/ui.frag
+ M assets/minecraft/shaders/ui.vert
+ M generate_assets.py
+ M include/entity/Entity.hpp
+ M include/entity/Mob.hpp
+ M include/render/ChunkMesh.hpp
+ M include/ui/FontRenderer.hpp
+ M include/ui/GUIRenderer.hpp
+ M include/ui/HUD.hpp
+ M include/world/Block.hpp
+ M include/world/Chunk.hpp
+ M include/world/ChunkProvider.hpp
+ M include/world/World.hpp
+ M include/world/WorldPersistence.hpp
+ M src/item/Inventory.cpp
+ M src/main.cpp
+ M src/physics/Raycast.cpp
+ M src/render/ChunkMesh.cpp
+ M src/render/TextureAtlas.cpp
+ M src/ui/FontRenderer.cpp
+ M src/ui/GUIRenderer.cpp
+ M src/ui/HUD.cpp
+ M src/world/Chunk.cpp
+ M src/world/ChunkProvider.cpp
+ M src/world/Lighting.cpp
+ M src/world/World.cpp
+ M src/world/WorldPersistence.cpp
+?? .github/
+?? assets/minecraft/shaders/basic_opaque.frag
+?? assets/minecraft/shaders/ui_solid.frag
+?? assets/minecraft/textures/blocks/.gitignore
+?? assets/minecraft/textures/blocks/.gitkeep
+?? cmake/
+?? docs/quality/baseline/
+?? docs/quality/defect-ledger.md
+?? include/world/BlockEntity.hpp
+?? include/world/ChestBlockEntity.hpp
+?? include/world/FurnaceBlockEntity.hpp
+?? src/world/BlockEntity.cpp
+?? tests/

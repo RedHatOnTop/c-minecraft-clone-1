@@ -1,0 +1,9 @@
+# Test EXE Log - 2026-02-25T23:49:01.7509230+09:00
+[PASS] DataMigration_ChunkLegacyToV2_RoundTrip
+[PASS] DataMigration_PlayerEntity_RoundTrip
+[PASS] Inventory_AddItem_NullRegistrySafe
+[PASS] Entity_MobHealthPersistence
+[PASS] Raycast_ZeroDirectionComponent_NoCrash
+[PASS] UI_ViewportResize_ProjectionUpdate
+[PASS] ChunkMesh_TransparentSort_Stable
+All tests passed.

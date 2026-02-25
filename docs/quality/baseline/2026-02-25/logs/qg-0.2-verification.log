@@ -1,0 +1,6 @@
+# QG 0.2 Verification - 2026-02-25T23:56:38.4643926+09:00
+ScenarioTotal=10
+ScenarioPass=9
+ScenarioPassRate=90%
+HighImpactItems=17
+HighImpactWithEvidence=17

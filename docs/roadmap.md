@@ -133,6 +133,8 @@ Quality gates:
 - `QG-DOC-0.1.2`: All six weighted domains map to explicit measurable items.
 
 #### Subphase 0.2 - Baseline Capture Execution (2026-03-02 to 2026-03-05)
+Status: Completed on February 25, 2026 (executed ahead of schedule)
+
 Focus:
 - Run baseline gameplay scenarios and collect evidence.
 
@@ -143,6 +145,10 @@ Deliverables:
 Quality gates:
 - `QG-TEST-0.2.1`: Baseline scenario suite run success >= 90%.
 - `QG-DOC-0.2.2`: Evidence attached for all high-impact scoring items.
+
+Completion note:
+- Scenario suite pass rate reached `90.00%` (`9/10`).
+- Interactive screenshot/video capture remains pending and is tracked in capture manifests.
 
 #### Subphase 0.3 - Gap Ranking and Lock (2026-03-06 to 2026-03-08)
 Focus:

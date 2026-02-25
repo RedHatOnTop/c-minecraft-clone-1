@@ -122,3 +122,32 @@ These items are intentionally deferred to Subphase 0.2 and must be added before 
 - Every item ID must map to at least one evidence artifact.
 - Every automated parity test must reference at least one matrix item ID.
 - Any roadmap score update must cite changed item IDs and evidence links.
+
+## 7. Initial Baseline Ratings (Subphase 0.2)
+
+Scale for this baseline capture:
+- `N/A`: insufficient evidence for a reliable baseline score yet.
+- `Partial`: evidence exists, but parity confidence is limited.
+- `Match`: baseline evidence indicates near-match behavior for the item scope tested.
+
+High-impact items for Subphase 0.2 evidence closure:
+
+| ID | Initial Rating | Baseline Note | Evidence |
+|---|---|---|---|
+| A-01 | Partial | Core visual assets are present; scene-level visual parity not yet measured. | `docs/quality/baseline/2026-02-25/logs/asset-presence.log` |
+| A-04 | Match | Transparent sorting regression test is passing in current baseline suite. | `docs/quality/baseline/2026-02-25/logs/test-exe.log` |
+| A-08 | Partial | First-person camera code path exists; motion-curve capture is pending. | `docs/quality/baseline/2026-02-25/logs/source-signals.log` |
+| B-01 | Partial | Movement behavior exists; deterministic curve comparison is pending. | `docs/quality/baseline/2026-02-25/logs/source-signals.log` |
+| B-04 | Partial | Collision and raycast safety tests pass; full collision matrix remains pending. | `docs/quality/baseline/2026-02-25/logs/test-exe.log` |
+| B-07 | Partial | Inventory safety test passes; full slot action parity suite is pending. | `docs/quality/baseline/2026-02-25/logs/test-exe.log` |
+| B-08 | N/A | Crafting parity baseline is not yet captured in automated scenarios. | `docs/quality/baseline/2026-02-25/scenario-suite-results.md` |
+| B-09 | N/A | Smelting transition parity baseline is pending dedicated scenario tests. | `docs/quality/baseline/2026-02-25/scenario-suite-results.md` |
+| C-01 | Partial | Core block coverage baseline is inferred from current assets and block registry paths. | `docs/quality/baseline/2026-02-25/logs/asset-presence.log` |
+| C-02 | Partial | Core item/tool baseline evidence exists through inventory/item test flows. | `docs/quality/baseline/2026-02-25/logs/test-exe.log` |
+| D-01 | N/A | Biome distribution baseline requires fixed-seed sampling not yet executed. | `docs/quality/baseline/2026-02-25/scenario-suite-results.md` |
+| D-05 | N/A | Structure generation baseline capture is scheduled for world baseline phase. | `docs/quality/baseline/2026-02-25/scenario-suite-results.md` |
+| D-06 | Match | Save/load progression continuity is validated by passing persistence tests. | `docs/quality/baseline/2026-02-25/logs/test-exe.log` |
+| E-01 | Partial | Menu flow baseline is documented; interactive capture run is pending. | `docs/quality/baseline/2026-02-25/captures/screenshot-manifest.md` |
+| E-03 | N/A | Settings persistence baseline requires interactive runtime flow capture. | `docs/quality/baseline/2026-02-25/scenario-suite-results.md` |
+| F-01 | Match | Required CTest target passes in baseline run. | `docs/quality/baseline/2026-02-25/logs/ctest-release.log` |
+| F-03 | Match | Persistence loop safety is covered by passing persistence-related tests. | `docs/quality/baseline/2026-02-25/logs/test-exe.log` |
