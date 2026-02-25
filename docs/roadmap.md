@@ -177,6 +177,8 @@ Window: 2026-03-09 to 2026-04-05
 Phase score target: 45+
 
 #### Subphase 1.1 - Architecture Boundary Cut (2026-03-09 to 2026-03-15)
+Status: Completed on February 25, 2026 (executed ahead of schedule)
+
 Focus:
 - Define and implement first modular boundaries from `main.cpp`.
 
@@ -187,6 +189,11 @@ Deliverables:
 Quality gates:
 - `QG-BUILD-1.1.1`: Clean configure/build on local and CI.
 - `QG-TEST-1.1.2`: Existing regression suite remains green.
+
+Completion note:
+- `AppBootstrap` and `InputController` boundaries are implemented under `include/app/` and `src/app/`.
+- Dependency and ownership mapping is published in `docs/quality/architecture-boundary-subphase-1.1.md`.
+- Local configure/build/test evidence is captured in `docs/quality/logs/subphase-1.1-*.log`.
 
 #### Subphase 1.2 - Test Topology Split (2026-03-16 to 2026-03-25)
 Focus:
@@ -649,6 +656,7 @@ Window: 2026-02-26 to 2026-03-20
    Status: Completed (Subphase 0.1)
 2. Implement domain-split CTest targets.  
 3. Execute first `main.cpp` split (`AppBootstrap`, `InputController`).  
+   Status: Completed (Subphase 1.1)
 4. Add 5 architecture regression tests (container lifetime/state transitions).  
 5. Add scripts for baseline scenario recording/log capture.
 

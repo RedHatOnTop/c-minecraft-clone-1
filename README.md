@@ -44,6 +44,7 @@ A high-fidelity Minecraft 1.8.9 clone built from scratch using C++20 and OpenGL 
 ## Repository Organization
 - `src/`: Core implementation files.
 - `include/`: Header files organized by module.
+- `include/app/`: Application-level orchestration boundaries (`GameContext`, `AppBootstrap`, `InputController`).
 - `assets/`: Textures, shaders, and models.
 - `cmake/`: Build and dependency helpers.
 - `docs/quality/`: Defect ledger and quality notes.
@@ -54,6 +55,8 @@ A high-fidelity Minecraft 1.8.9 clone built from scratch using C++20 and OpenGL 
 - `docs/quality/subphase-0.1-qg-report.md`: Subphase 0.1 quality-gate verification.
 - `docs/quality/subphase-0.2-qg-report.md`: Subphase 0.2 quality-gate verification.
 - `docs/quality/subphase-0.3-qg-report.md`: Subphase 0.3 quality-gate verification.
+- `docs/quality/subphase-1.1-qg-report.md`: Subphase 1.1 quality-gate verification.
+- `docs/quality/architecture-boundary-subphase-1.1.md`: Module dependency and ownership boundary map for Subphase 1.1.
 - `docs/quality/baseline/`: Baseline scenario evidence package (logs, manifests, indexes).
 - `docs/roadmap.md`: Project roadmap and milestone plan.
 - `external/`: Third-party header-only libraries.

@@ -1,0 +1,30 @@
+MSBuild version 17.14.23+b0019275e(for .NET Framework)
+
+  glfw.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\_deps\glfw-build\src\Release\glfw3.lib
+  glm.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\_deps\glm-build\glm\Release\glm.lib
+  AppBootstrap.cpp
+  InputController.cpp
+  main.cpp
+  Player.cpp
+  Camera.cpp
+  ChunkMesh.cpp
+  SelectionBox.cpp
+  Shader.cpp
+  Texture.cpp
+  TextureAtlas.cpp
+  FontRenderer.cpp
+  GUIRenderer.cpp
+  HUD.cpp
+  ChunkProvider.cpp
+  WorldPersistence.cpp
+  Generating Code...
+  gl3w.c
+  MinecraftClone189.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\MinecraftClone189.exe
+  Player.cpp
+  Camera.cpp
+  WorldPersistence.cpp
+  test_persistence.cpp
+  test_raycast.cpp
+  Generating Code...
+  gl3w.c
+  MinecraftClone189Tests.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\MinecraftClone189Tests.exe
