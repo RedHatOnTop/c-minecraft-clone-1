@@ -1,0 +1,54 @@
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.26200.
+-- MC_OFFLINE_FETCHCONTENT=ON
+-- Using Win32 for window creation
+CMake Deprecation Warning at build/_deps/glm-src/CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+CMake Deprecation Warning at build/_deps/glm-src/CMakeLists.txt:2 (cmake_policy):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- GLM: Version 1.0.1
+-- GLM: Build with C++ features auto detection
+CMake Deprecation Warning at build/_deps/json-src/CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+
+
+-- Using the multi-header code from C:/Users/jin14/Projects/c-minecraft-clone-1/build/_deps/json-src/include/
+-- Generating gl3w sources
+Reusing include/GL/glcorearb.h...
+Reusing include/KHR/khrplatform.h...
+Parsing glcorearb.h header...
+Generating include/GL/gl3w.h...
+Generating src/gl3w.c...
+-- Generating gl3w sources - Done
+CMake Warning at build/_deps/gl3w-src/CMakeLists.txt:98 (export):
+  Cannot create/open registry key
+
+    HKEY_CURRENT_USER\Software\Kitware\CMake\Packages\gl3w
+
+  Windows reported:
+
+    Access is denied.
+
+
+
+-- Configuring done (8.0s)
+-- Generating done (0.6s)
+-- Build files have been written to: C:/Users/jin14/Projects/c-minecraft-clone-1/build

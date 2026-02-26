@@ -215,6 +215,8 @@ Completion note:
 - Verification logs are captured under `docs/quality/logs/subphase-1.2-*.log`.
 
 #### Subphase 1.3 - Integration Hardening (2026-03-26 to 2026-04-05)
+Status: In progress (started on February 26, 2026)
+
 Focus:
 - Stabilize architecture/test changes and close regressions.
 
@@ -226,6 +228,12 @@ Quality gates:
 - `QG-TEST-1.3.1`: 100% pass on all required test targets.
 - `QG-DOC-1.3.2`: PR gate policy updated and linked in docs.
 - `QG-PARITY-1.3.3`: Score reaches at least 45.
+
+Progress note:
+- Integration verification run is captured in `docs/quality/subphase-1.3-integration-report.md`.
+- Contribution gate policy was published in `docs/quality/contribution-gate-policy.md`.
+- Current gate tracker is published in `docs/quality/subphase-1.3-qg-report.md`.
+- `QG-TEST-1.3.1` and `QG-DOC-1.3.2` are currently passing; `QG-PARITY-1.3.3` remains open.
 
 Phase exit criteria:
 - Architecture split is safe to iterate on.
