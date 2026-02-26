@@ -12,52 +12,7 @@ endif()
 # Output directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# FetchContent for dependencies
-include(FetchContent)
-
-# GLFW
-FetchContent_Declare(
-    glfw
-    GIT_REPOSITORY https://github.com/glfw/glfw.git
-    GIT_TAG 3.3.8
-)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(glfw)
-
-# GLM (Header-only)
-FetchContent_Declare(
-    glm
-    GIT_REPOSITORY https://github.com/g-truc/glm.git
-    GIT_TAG 1.0.1
-)
-FetchContent_MakeAvailable(glm)
-
-# nlohmann_json
-FetchContent_Declare(
-    json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.11.2
-)
-FetchContent_MakeAvailable(json)
-
-# GLEW
-FetchContent_Declare(
-    glew
-    GIT_REPOSITORY https://github.com/nigels-com/glew.git
-    GIT_TAG glew-2.2.0
-)
-# GLEW is a bit annoying to build with FetchContent directly.
-# I'll use a better approach: find_package or a simpler loader.
-# Actually, I'll use gl3w.
-FetchContent_Declare(
-    gl3w
-    GIT_REPOSITORY https://github.com/skaslev/gl3w.git
-    GIT_TAG master
-)
-FetchContent_MakeAvailable(gl3w)
+include(cmake/Dependencies.cmake)
 
 # Include directories
 include_directories(include)
@@ -92,3 +47,55 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/assets
     $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets)
+
+include(CTest)
+if(BUILD_TESTING)
+    set(TEST_SHARED_SOURCES
+        src/world/WorldPersistence.cpp
+        src/world/Chunk.cpp
+        src/world/World.cpp
+        src/world/Lighting.cpp
+        src/world/BlockEntity.cpp
+        src/physics/Raycast.cpp
+        src/physics/Player.cpp
+        src/render/Camera.cpp
+        src/item/Inventory.cpp
+        src/util/SoundManager.cpp
+    )
+
+    function(add_mc_test_target target_name)
+        add_executable(${target_name}
+            ${ARGN}
+            ${TEST_SHARED_SOURCES}
+        )
+        target_include_directories(${target_name} PRIVATE include external tests)
+        target_link_libraries(${target_name} PRIVATE glfw gl3w nlohmann_json::nlohmann_json glm::glm)
+        if(WIN32)
+            target_link_libraries(${target_name} PRIVATE opengl32)
+        else()
+            target_link_libraries(${target_name} PRIVATE GL)
+        endif()
+        add_test(NAME ${target_name} COMMAND ${target_name})
+        set_tests_properties(${target_name} PROPERTIES WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+    endfunction()
+
+    add_mc_test_target(tests_data
+        tests/test_main_data.cpp
+        tests/test_persistence.cpp
+    )
+
+    add_mc_test_target(tests_runtime
+        tests/test_main_runtime.cpp
+        tests/test_inventory.cpp
+    )
+
+    add_mc_test_target(tests_render
+        tests/test_main_render.cpp
+        tests/test_raycast.cpp
+    )
+
+    add_mc_test_target(tests_gameplay_smoke
+        tests/test_main_gameplay_smoke.cpp
+        tests/test_replay.cpp
+    )
+endif()

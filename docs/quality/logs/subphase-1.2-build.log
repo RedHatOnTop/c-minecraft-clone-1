@@ -1,0 +1,9 @@
+MSBuild version 17.14.23+b0019275e(for .NET Framework)
+
+  glfw.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\_deps\glfw-build\src\Release\glfw3.lib
+  glm.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\_deps\glm-build\glm\Release\glm.lib
+  MinecraftClone189.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\MinecraftClone189.exe
+  tests_data.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\tests_data.exe
+  tests_gameplay_smoke.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\tests_gameplay_smoke.exe
+  tests_render.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\tests_render.exe
+  tests_runtime.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\tests_runtime.exe

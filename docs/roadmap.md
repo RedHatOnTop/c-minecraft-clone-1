@@ -196,6 +196,8 @@ Completion note:
 - Local configure/build/test evidence is captured in `docs/quality/logs/subphase-1.1-*.log`.
 
 #### Subphase 1.2 - Test Topology Split (2026-03-16 to 2026-03-25)
+Status: Completed on February 25, 2026 (executed ahead of schedule)
+
 Focus:
 - Split monolithic test execution into domain targets.
 
@@ -206,6 +208,11 @@ Deliverables:
 Quality gates:
 - `QG-TEST-1.2.1`: At least 4 independent CTest targets are runnable.
 - `QG-TEST-1.2.2`: Replay harness can deterministically reproduce at least 3 sample scenarios.
+
+Completion note:
+- CTest topology was split into four domain targets: `tests_data`, `tests_runtime`, `tests_render`, `tests_gameplay_smoke`.
+- Deterministic replay harness v1 is implemented and validated for three sample scenarios.
+- Verification logs are captured under `docs/quality/logs/subphase-1.2-*.log`.
 
 #### Subphase 1.3 - Integration Hardening (2026-03-26 to 2026-04-05)
 Focus:
@@ -655,6 +662,7 @@ Window: 2026-02-26 to 2026-03-20
 1. Create `docs/quality/parity-matrix-v1.md`.  
    Status: Completed (Subphase 0.1)
 2. Implement domain-split CTest targets.  
+   Status: Completed (Subphase 1.2)
 3. Execute first `main.cpp` split (`AppBootstrap`, `InputController`).  
    Status: Completed (Subphase 1.1)
 4. Add 5 architecture regression tests (container lifetime/state transitions).  
