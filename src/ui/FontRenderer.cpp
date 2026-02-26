@@ -1,44 +1,11 @@
 #include "ui/FontRenderer.hpp"
+#include <algorithm>
 #include <glm/gtc/matrix_transform.hpp>
-#include <fstream>
 
 FontRenderer::FontRenderer(const std::string& fontPath) {
     m_fontTexture = new Texture(fontPath.c_str(), false);
-    
-    // Basic vertex shader for UI
-    const char* vShader = R"(
-        #version 330 core
-        layout (location = 0) in vec4 vertex; // pos, uv
-        out vec2 TexCoords;
-        uniform mat4 projection;
-        void main() {
-            gl_Position = projection * vec4(vertex.xy, 0.0, 1.0);
-            TexCoords = vertex.zw;
-        }
-    )";
-    
-    // Basic fragment shader for UI
-    const char* fShader = R"(
-        #version 330 core
-        in vec2 TexCoords;
-        out vec4 color;
-        uniform sampler2D text;
-        uniform vec3 textColor;
-        void main() {
-            vec4 sampled = texture(text, TexCoords);
-            if(sampled.a < 0.1) discard;
-            color = vec4(textColor, 1.0) * sampled;
-        }
-    )";
-    
-    // We'd normally save these to files, but for a quick implementation:
-    // Actually, I'll use the existing Shader class and just write temporary files.
-    std::ofstream vFile("assets/minecraft/shaders/ui.vert");
-    vFile << vShader;
-    vFile.close();
-    std::ofstream fFile("assets/minecraft/shaders/ui.frag");
-    fFile << fShader;
-    fFile.close();
+    m_viewWidth = 800;
+    m_viewHeight = 600;
 
     m_shader = new Shader("assets/minecraft/shaders/ui.vert", "assets/minecraft/shaders/ui.frag");
     setupRenderData();
@@ -61,13 +28,20 @@ void FontRenderer::setupRenderData() {
     glBindVertexArray(0);
 }
 
+void FontRenderer::setViewport(int width, int height) {
+    glm::ivec2 size = normalizeViewport(width, height);
+    m_viewWidth = size.x;
+    m_viewHeight = size.y;
+}
+
 void FontRenderer::renderString(const std::string& text, float x, float y, float scale, const glm::vec3& color, bool shadow) {
     m_shader->use();
+    m_shader->setInt("text", 0);
     m_shader->setVec3("textColor", color);
     m_fontTexture->bind(0);
     
-    // Standard MC UI projection (0,0 is top-left)
-    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f);
+    // Standard UI projection (0,0 is top-left)
+    glm::mat4 projection = glm::ortho(0.0f, (float)m_viewWidth, (float)m_viewHeight, 0.0f);
     m_shader->setMat4("projection", projection);
 
     glBindVertexArray(m_VAO);

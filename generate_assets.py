@@ -19,6 +19,8 @@ create_block("grass_side", (134, 96, 67))
 create_block("log_top", (100, 80, 50))
 create_block("log_side", (80, 60, 40))
 create_block("leaves", (50, 150, 50))
+create_block("chest", (160, 120, 60))
+create_block("furnace", (90, 90, 90))
 
 # Generate ascii.png (128x128 grid of 8x8 characters)
 font_img = Image.new("RGBA", (128, 128), (0, 0, 0, 0))

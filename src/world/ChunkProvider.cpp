@@ -1,9 +1,10 @@
 #include "world/ChunkProvider.hpp"
+#include "world/WorldPersistence.hpp"
 #include <glm/gtc/matrix_transform.hpp>
-#include <algorithm>
+#include <vector>
 
-ChunkProvider::ChunkProvider(World& world, WorldGenerator& generator, TextureAtlas& atlas)
-    : m_world(world), m_generator(generator), m_atlas(atlas) {}
+ChunkProvider::ChunkProvider(World& world, WorldGenerator& generator, TextureAtlas& atlas, const std::string& worldPath)
+    : m_world(world), m_generator(generator), m_atlas(atlas), m_worldPath(worldPath) {}
 
 ChunkProvider::~ChunkProvider() {}
 
@@ -30,17 +31,29 @@ void ChunkProvider::render(Shader& shader, const Frustum& frustum) {
     }
 }
 
-void ChunkProvider::renderTransparent(Shader& shader, const Frustum& frustum) {
+void ChunkProvider::renderTransparent(Shader& shader, const Frustum& frustum, const glm::vec3& cameraPos) {
     m_atlas.bind(0);
+    std::vector<glm::ivec2> visiblePositions;
+    visiblePositions.reserve(m_meshes.size());
+
     for (auto const& [pos, mesh] : m_meshes) {
+        (void)mesh;
         glm::vec3 min(pos.x * CHUNK_WIDTH, 0, pos.y * CHUNK_WIDTH);
         glm::vec3 max((pos.x + 1) * CHUNK_WIDTH, CHUNK_HEIGHT, (pos.y + 1) * CHUNK_WIDTH);
         
         if (frustum.isBoxInFrustum(min, max)) {
-            glm::mat4 model = glm::translate(glm::mat4(1.0f), min);
-            shader.setMat4("model", model);
-            mesh->renderTransparent();
+            visiblePositions.push_back(pos);
         }
+    }
+
+    std::vector<glm::ivec2> drawOrder = sortTransparentPositions(visiblePositions, cameraPos);
+    for (const glm::ivec2& pos : drawOrder) {
+        auto it = m_meshes.find(pos);
+        if (it == m_meshes.end()) continue;
+        glm::vec3 min(pos.x * CHUNK_WIDTH, 0, pos.y * CHUNK_WIDTH);
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), min);
+        shader.setMat4("model", model);
+        it->second->renderTransparent();
     }
 }
 
@@ -51,7 +64,10 @@ void ChunkProvider::loadAround(int centerX, int centerZ, int distance) {
             
             if (m_world.getChunks().find(pos) == m_world.getChunks().end()) {
                 m_world.loadChunk(x, z);
-                m_generator.generateChunk(m_world.getChunks().at(pos).get());
+                LoadResult loadRes = WorldPersistence::loadChunk(m_worldPath, *m_world.getChunks().at(pos));
+                if (!loadRes.ok()) {
+                    m_generator.generateChunk(m_world.getChunks().at(pos).get());
+                }
                 enqueueMesh(pos);
             }
 

@@ -7,31 +7,42 @@ HUD::HUD(FontRenderer& font, GUIRenderer& gui) : m_font(font), m_gui(gui) {}
 
 HUD::~HUD() {}
 
-void HUD::render(const Player& player, int fps, bool inventoryOpen) {
-    if (inventoryOpen) {
-        renderInventory(player);
+void HUD::render(const Player& player, int fps, bool inventoryOpen, const ChestBlockEntity* chest, const FurnaceBlockEntity* furnace, int viewWidth, int viewHeight) {
+    m_gui.setViewport(viewWidth, viewHeight);
+    m_font.setViewport(viewWidth, viewHeight);
+
+    if (chest) {
+        renderChest(player, *chest, viewWidth, viewHeight);
         return;
     }
-    renderCrosshair();
-    renderHotbar(player);
+    if (furnace) {
+        renderFurnace(player, *furnace, viewWidth, viewHeight);
+        return;
+    }
+    if (inventoryOpen) {
+        renderInventory(player, viewWidth, viewHeight);
+        return;
+    }
+    renderCrosshair(viewWidth, viewHeight);
+    renderHotbar(player, viewWidth, viewHeight);
     renderDebug(player, fps);
 }
 
-void HUD::renderCrosshair() {
-    float centerX = 800.0f / 2.0f;
-    float centerY = 600.0f / 2.0f;
+void HUD::renderCrosshair(int viewWidth, int viewHeight) {
+    glm::vec2 center = crosshairCenterForViewport(viewWidth, viewHeight);
     float size = 10.0f;
     float thickness = 2.0f;
 
-    m_gui.renderRect(centerX - size, centerY - thickness / 2.0f, size * 2, thickness, glm::vec3(1.0f));
-    m_gui.renderRect(centerX - thickness / 2.0f, centerY - size, thickness, size * 2, glm::vec3(1.0f));
+    m_gui.renderRect(center.x - size, center.y - thickness * 0.5f, size * 2, thickness, glm::vec3(1.0f));
+    m_gui.renderRect(center.x - thickness * 0.5f, center.y - size, thickness, size * 2, glm::vec3(1.0f));
 }
 
-void HUD::renderHotbar(const Player& player) {
-    float barWidth = 182 * 2.0f;
-    float barHeight = 22 * 2.0f;
-    float x = (800.0f - barWidth) / 2.0f;
-    float y = 600.0f - barHeight - 2.0f;
+void HUD::renderHotbar(const Player& player, int viewWidth, int viewHeight) {
+    glm::vec2 origin = hotbarOriginForViewport(viewWidth, viewHeight);
+    float barWidth = 182.0f * 2.0f;
+    float barHeight = 22.0f * 2.0f;
+    float x = origin.x;
+    float y = origin.y;
 
     // Background (grayish)
     m_gui.renderRect(x, y, barWidth, barHeight, glm::vec3(0.5f), 0.5f);
@@ -69,13 +80,13 @@ void HUD::renderDebug(const Player& player, int fps) {
     m_font.renderString(ss.str(), 5, 85, 2.0f, glm::vec3(1.0f));
 }
 
-void HUD::renderInventory(const Player& player) {
-    m_gui.renderRect(0, 0, 800, 600, glm::vec3(0.0f), 0.5f);
+void HUD::renderInventory(const Player& player, int viewWidth, int viewHeight) {
+    m_gui.renderRect(0, 0, (float)viewWidth, (float)viewHeight, glm::vec3(0.0f), 0.5f);
 
     float invW = 352.0f;
     float invH = 332.0f;
-    float startX = (800.0f - invW) / 2.0f;
-    float startY = (600.0f - invH) / 2.0f;
+    float startX = ((float)viewWidth - invW) / 2.0f;
+    float startY = ((float)viewHeight - invH) / 2.0f;
 
     m_gui.renderRect(startX, startY, invW, invH, glm::vec3(0.2f), 0.85f);
 
@@ -102,4 +113,66 @@ void HUD::renderInventory(const Player& player) {
 
     m_font.renderString("Inventory", startX + 16.0f, startY + 16.0f, 2.0f, glm::vec3(1.0f));
     m_font.renderString("Press C to craft: 1 log -> 4 planks", startX + 16.0f, startY + invH - 32.0f, 1.5f, glm::vec3(1.0f));
+}
+
+void HUD::renderChest(const Player& player, const ChestBlockEntity& chest, int viewWidth, int viewHeight) {
+    m_gui.renderRect(0, 0, (float)viewWidth, (float)viewHeight, glm::vec3(0.0f), 0.5f);
+    float w = 352.0f;
+    float h = 280.0f;
+    float startX = ((float)viewWidth - w) / 2.0f;
+    float startY = ((float)viewHeight - h) / 2.0f;
+    m_gui.renderRect(startX, startY, w, h, glm::vec3(0.2f), 0.9f);
+
+    float slotSize = 32.0f;
+    float pad = 6.0f;
+    float gridX = startX + 16.0f;
+    float gridY = startY + 56.0f;
+
+    for (int row = 0; row < 3; ++row) {
+        for (int col = 0; col < 9; ++col) {
+            int slot = row * 9 + col;
+            float x = gridX + col * (slotSize + pad);
+            float y = gridY + row * (slotSize + pad);
+            m_gui.renderRect(x, y, slotSize, slotSize, glm::vec3(0.1f), 0.95f);
+            ItemStack stack = chest.inventory.getStack(slot);
+            if (!stack.isEmpty()) {
+                std::stringstream ss;
+                ss << stack.count;
+                m_font.renderString(ss.str(), x + 18.0f, y + 18.0f, 1.5f, glm::vec3(1.0f));
+            }
+        }
+    }
+
+    m_font.renderString("Chest", startX + 16.0f, startY + 16.0f, 2.0f, glm::vec3(1.0f));
+    m_font.renderString("Press T to move Hotbar[0] -> Chest[0]", startX + 16.0f, startY + h - 32.0f, 1.5f, glm::vec3(1.0f));
+}
+
+void HUD::renderFurnace(const Player& player, const FurnaceBlockEntity& furnace, int viewWidth, int viewHeight) {
+    m_gui.renderRect(0, 0, (float)viewWidth, (float)viewHeight, glm::vec3(0.0f), 0.5f);
+    float w = 240.0f;
+    float h = 200.0f;
+    float startX = ((float)viewWidth - w) / 2.0f;
+    float startY = ((float)viewHeight - h) / 2.0f;
+    m_gui.renderRect(startX, startY, w, h, glm::vec3(0.2f), 0.9f);
+
+    float slotSize = 40.0f;
+    float pad = 12.0f;
+    float x0 = startX + 24.0f;
+    float y0 = startY + 72.0f;
+
+    for (int i = 0; i < 3; ++i) {
+        float x = x0 + i * (slotSize + pad);
+        float y = y0;
+        m_gui.renderRect(x, y, slotSize, slotSize, glm::vec3(0.1f), 0.95f);
+        ItemStack stack = furnace.inventory.getStack(i);
+        if (!stack.isEmpty()) {
+            std::stringstream ss;
+            ss << stack.count;
+            m_font.renderString(ss.str(), x + 22.0f, y + 22.0f, 1.5f, glm::vec3(1.0f));
+        }
+    }
+
+    m_font.renderString("Furnace", startX + 16.0f, startY + 16.0f, 2.0f, glm::vec3(1.0f));
+    m_font.renderString("Press U to move Hotbar[0] -> Furnace Input", startX + 16.0f, startY + h - 52.0f, 1.5f, glm::vec3(1.0f));
+    m_font.renderString("Press Y to smelt: 1 cobble -> 1 stone", startX + 16.0f, startY + h - 32.0f, 1.5f, glm::vec3(1.0f));
 }

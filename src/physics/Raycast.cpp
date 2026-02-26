@@ -3,17 +3,28 @@
 
 RaycastResult Raycaster::raycast(const glm::vec3& origin, const glm::vec3& direction, float maxDistance, World& world) {
     RaycastResult result;
-    
-    glm::vec3 dir = glm::normalize(direction);
+
+    const float eps = 1e-6f;
+    float len = glm::length(direction);
+    if (len <= eps) return result;
+
+    glm::vec3 dir = direction / len;
     glm::ivec3 currentBlock = glm::floor(origin);
     
     glm::vec3 step = glm::sign(dir);
-    glm::vec3 deltaDist = glm::abs(1.0f / dir);
+    glm::vec3 deltaDist(
+        std::abs(dir.x) > eps ? std::abs(1.0f / dir.x) : 1e30f,
+        std::abs(dir.y) > eps ? std::abs(1.0f / dir.y) : 1e30f,
+        std::abs(dir.z) > eps ? std::abs(1.0f / dir.z) : 1e30f
+    );
     
     glm::vec3 sideDist;
-    sideDist.x = (dir.x > 0) ? (currentBlock.x + 1.0f - origin.x) * deltaDist.x : (origin.x - currentBlock.x) * deltaDist.x;
-    sideDist.y = (dir.y > 0) ? (currentBlock.y + 1.0f - origin.y) * deltaDist.y : (origin.y - currentBlock.y) * deltaDist.y;
-    sideDist.z = (dir.z > 0) ? (currentBlock.z + 1.0f - origin.z) * deltaDist.z : (origin.z - currentBlock.z) * deltaDist.z;
+    sideDist.x = (dir.x > eps) ? (currentBlock.x + 1.0f - origin.x) * deltaDist.x
+                               : (dir.x < -eps ? (origin.x - currentBlock.x) * deltaDist.x : 1e30f);
+    sideDist.y = (dir.y > eps) ? (currentBlock.y + 1.0f - origin.y) * deltaDist.y
+                               : (dir.y < -eps ? (origin.y - currentBlock.y) * deltaDist.y : 1e30f);
+    sideDist.z = (dir.z > eps) ? (currentBlock.z + 1.0f - origin.z) * deltaDist.z
+                               : (dir.z < -eps ? (origin.z - currentBlock.z) * deltaDist.z : 1e30f);
 
     float dist = 0;
     glm::ivec3 normal(0);

@@ -20,6 +20,7 @@ public:
 
     void setBlock(int x, int y, int z, Block block);
     Block getBlock(int x, int y, int z);
+    Chunk* getChunk(int x, int z);
 
     void loadChunk(int x, int z);
     void unloadChunk(int x, int z);

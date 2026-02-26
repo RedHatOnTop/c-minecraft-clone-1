@@ -34,42 +34,66 @@ void ChunkMesh::generate(const Chunk& chunk, const TextureAtlas& atlas) {
                 bool isTrans = (block.id == Blocks::WATER || block.id == Blocks::LEAVES);
                 auto& target = isTrans ? transVertices : vertices;
                 float light = (float)std::max(getSkyLight(block), getBlockLight(block)) / 15.0f;
+
+                auto shouldRenderFaceAgainst = [&](BlockID neighborId) -> bool {
+                    return isBlockTransparent(neighborId) && neighborId != block.id;
+                };
+
+                auto rotateCW = [](Face f) -> Face {
+                    switch (f) {
+                        case Face::NORTH: return Face::EAST;
+                        case Face::EAST: return Face::SOUTH;
+                        case Face::SOUTH: return Face::WEST;
+                        case Face::WEST: return Face::NORTH;
+                        default: return f;
+                    }
+                };
+
+                auto faceForTexture = [&](Face face) -> Face {
+                    if (face != Face::NORTH && face != Face::SOUTH && face != Face::EAST && face != Face::WEST) return face;
+                    if (block.id != Blocks::CHEST && block.id != Blocks::FURNACE) return face;
+                    int rot = block.metadata & 3;
+                    int inv = (4 - rot) & 3;
+                    Face out = face;
+                    for (int i = 0; i < inv; ++i) out = rotateCW(out);
+                    return out;
+                };
                 
                 // Down
-                if (y > 0 && chunk.getBlock(x, y - 1, z).id == Blocks::AIR)
-                    addFace(target, pos, 0, atlas.getTextureInfo(state->faceTextures.at(Face::DOWN)), light);
+                if (y > 0 && shouldRenderFaceAgainst(chunk.getBlock(x, y - 1, z).id))
+                    addFace(target, pos, 0, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::DOWN))), light);
                 else if (y == 0)
-                    addFace(target, pos, 0, atlas.getTextureInfo(state->faceTextures.at(Face::DOWN)), light);
+                    addFace(target, pos, 0, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::DOWN))), light);
 
                 // Up
-                if (y < CHUNK_HEIGHT - 1 && chunk.getBlock(x, y + 1, z).id == Blocks::AIR)
-                    addFace(target, pos, 1, atlas.getTextureInfo(state->faceTextures.at(Face::UP)), light);
+                if (y < CHUNK_HEIGHT - 1 && shouldRenderFaceAgainst(chunk.getBlock(x, y + 1, z).id))
+                    addFace(target, pos, 1, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::UP))), light);
                 else if (y == CHUNK_HEIGHT - 1)
-                    addFace(target, pos, 1, atlas.getTextureInfo(state->faceTextures.at(Face::UP)), light);
+                    addFace(target, pos, 1, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::UP))), light);
 
                 // North
-                if (z > 0 && chunk.getBlock(x, y, z - 1).id == Blocks::AIR)
-                    addFace(target, pos, 2, atlas.getTextureInfo(state->faceTextures.at(Face::NORTH)), light);
+                if (z > 0 && shouldRenderFaceAgainst(chunk.getBlock(x, y, z - 1).id))
+                    addFace(target, pos, 2, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::NORTH))), light);
                 else if (z == 0)
-                    addFace(target, pos, 2, atlas.getTextureInfo(state->faceTextures.at(Face::NORTH)), light);
+                    addFace(target, pos, 2, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::NORTH))), light);
 
                 // South
-                if (z < CHUNK_WIDTH - 1 && chunk.getBlock(x, y, z + 1).id == Blocks::AIR)
-                    addFace(target, pos, 3, atlas.getTextureInfo(state->faceTextures.at(Face::SOUTH)), light);
+                if (z < CHUNK_WIDTH - 1 && shouldRenderFaceAgainst(chunk.getBlock(x, y, z + 1).id))
+                    addFace(target, pos, 3, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::SOUTH))), light);
                 else if (z == CHUNK_WIDTH - 1)
-                    addFace(target, pos, 3, atlas.getTextureInfo(state->faceTextures.at(Face::SOUTH)), light);
+                    addFace(target, pos, 3, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::SOUTH))), light);
 
                 // West
-                if (x > 0 && chunk.getBlock(x - 1, y, z).id == Blocks::AIR)
-                    addFace(target, pos, 4, atlas.getTextureInfo(state->faceTextures.at(Face::WEST)), light);
+                if (x > 0 && shouldRenderFaceAgainst(chunk.getBlock(x - 1, y, z).id))
+                    addFace(target, pos, 4, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::WEST))), light);
                 else if (x == 0)
-                    addFace(target, pos, 4, atlas.getTextureInfo(state->faceTextures.at(Face::WEST)), light);
+                    addFace(target, pos, 4, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::WEST))), light);
 
                 // East
-                if (x < CHUNK_WIDTH - 1 && chunk.getBlock(x + 1, y, z).id == Blocks::AIR)
-                    addFace(target, pos, 5, atlas.getTextureInfo(state->faceTextures.at(Face::EAST)), light);
+                if (x < CHUNK_WIDTH - 1 && shouldRenderFaceAgainst(chunk.getBlock(x + 1, y, z).id))
+                    addFace(target, pos, 5, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::EAST))), light);
                 else if (x == CHUNK_WIDTH - 1)
-                    addFace(target, pos, 5, atlas.getTextureInfo(state->faceTextures.at(Face::EAST)), light);
+                    addFace(target, pos, 5, atlas.getTextureInfo(state->faceTextures.at(faceForTexture(Face::EAST))), light);
             }
         }
     }

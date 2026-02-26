@@ -29,6 +29,13 @@ out/
 external/*
 !external/CMakeLists.txt
 
+# Optional local asset packs
+assets/sample-texturepack/
+assets/simple-texturepack/
+
+# Test outputs
+tests/out/
+
 # OS generated files
 .DS_Store
 Thumbs.db

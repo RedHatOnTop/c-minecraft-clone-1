@@ -7,8 +7,8 @@
 #include "render/TextureAtlas.hpp"
 
 struct ChunkVertex {
-    glm::vec3 position;
-    glm::vec2 texCoord;
+    float position[3];
+    float texCoord[2];
     float ao;
     float light;
 };

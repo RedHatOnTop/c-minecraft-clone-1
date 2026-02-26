@@ -25,6 +25,9 @@ bool Inventory::addItem(ItemStack& stack) {
     for (auto& slot : m_slots) {
         if (!slot.isEmpty() && slot.itemID == stack.itemID && slot.metadata == stack.metadata) {
             Item* item = slot.getItem();
+            if (!item) {
+                continue;
+            }
             int canAdd = item->maxStackSize - slot.count;
             int toAdd = std::min(canAdd, stack.count);
             slot.count += toAdd;

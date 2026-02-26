@@ -7,14 +7,17 @@ layout (location = 3) in float aLight;
 out vec2 TexCoord;
 out float AO;
 out float Light;
+out vec3 ViewPos;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
 void main() {
-    gl_Position = projection * view * model * vec4(aPos, 1.0);
+    vec4 viewPos = view * model * vec4(aPos, 1.0);
+    gl_Position = projection * viewPos;
     TexCoord = aTexCoord;
     AO = aAO;
     Light = aLight;
+    ViewPos = viewPos.xyz;
 }

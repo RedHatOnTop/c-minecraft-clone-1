@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  windows-build-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -B build -DMC_OFFLINE_FETCHCONTENT=OFF
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure

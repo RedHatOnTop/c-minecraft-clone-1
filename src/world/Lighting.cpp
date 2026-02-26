@@ -6,10 +6,10 @@ void Lighting::recalculateSkylight(Chunk& chunk) {
             uint8_t sky = 15;
             for (int y = CHUNK_HEIGHT - 1; y >= 0; --y) {
                 Block b = chunk.getBlock(x, y, z);
+                chunk.setLight(x, y, z, sky, getBlockLight(b));
                 if (sky > 0 && isBlockOpaque(b.id)) {
                     sky = 0;
                 }
-                chunk.setLight(x, y, z, sky, getBlockLight(b));
             }
         }
     }

@@ -17,6 +17,11 @@ void World::setBlock(int x, int y, int z, Block block) {
         if (bz < 0) bz += CHUNK_WIDTH;
         
         m_chunks[chunkPos]->setBlock(bx, y, bz, block);
+        if (block.id == Blocks::CHEST || block.id == Blocks::FURNACE) {
+            m_chunks[chunkPos]->ensureBlockEntity(bx, y, bz, block.id);
+        } else {
+            m_chunks[chunkPos]->removeBlockEntity(bx, y, bz);
+        }
         Lighting::recalculateAll(*m_chunks[chunkPos]);
     }
 }
@@ -42,6 +47,12 @@ void World::loadChunk(int x, int z) {
     if (m_chunks.find(pos) == m_chunks.end()) {
         m_chunks[pos] = std::make_shared<Chunk>(x, z);
     }
+}
+
+Chunk* World::getChunk(int x, int z) {
+    glm::ivec2 pos(x, z);
+    auto it = m_chunks.find(pos);
+    return it == m_chunks.end() ? nullptr : it->second.get();
 }
 
 void World::unloadChunk(int x, int z) {
