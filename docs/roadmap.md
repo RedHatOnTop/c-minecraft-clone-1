@@ -175,6 +175,7 @@ Phase exit criteria:
 ### 6.2 Phase 1 - Test Hardening and Architecture Foundation
 Window: 2026-03-09 to 2026-04-05  
 Phase score target: 45+
+Phase status: Completed on February 26, 2026 (executed ahead of schedule)
 
 #### Subphase 1.1 - Architecture Boundary Cut (2026-03-09 to 2026-03-15)
 Status: Completed on February 25, 2026 (executed ahead of schedule)
@@ -236,7 +237,7 @@ Progress note:
 - Phase 1 parity re-score is published in `docs/quality/phase1-parity-report-2026-02-26.md` (`45.07 / 100`).
 
 #### Subphase 1.4 - Phase 2 Entry Setup (2026-04-06 to 2026-04-12)
-Status: In progress (started on February 26, 2026)
+Status: Completed on February 26, 2026 (executed ahead of schedule)
 
 Focus:
 - Establish handoff artifacts and metric harness baselines required for Phase 2.1 execution.
@@ -252,6 +253,9 @@ Quality gates:
 
 Progress note:
 - Initial kickoff artifacts are published in `docs/quality/subphase-1.4-kickoff.md` and `docs/quality/subphase-1.4-qg-report.md`.
+- Phase 2 handoff checklist and dependency map are published in `docs/quality/phase2-entry-checklist.md`.
+- Movement/worldgen metric baseline references are published in `docs/quality/phase2-metric-baselines.md`.
+- Final gate verification is published in `docs/quality/subphase-1.4-qg-report.md` (all gates PASS).
 
 Phase exit criteria:
 - Architecture split is safe to iterate on.

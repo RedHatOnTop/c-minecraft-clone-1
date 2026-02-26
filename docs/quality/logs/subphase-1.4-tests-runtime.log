@@ -1,0 +1,4 @@
+[tests_runtime][PASS] Inventory_AddItem_NullRegistrySafe
+[tests_runtime][PASS] Physics_JumpApex_FixedTickProfile
+[tests_runtime][PASS] Runtime_MemoryGrowth_SoakProfile
+[tests_runtime] All tests passed.

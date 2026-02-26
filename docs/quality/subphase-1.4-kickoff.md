@@ -27,3 +27,8 @@ Prepare execution-ready inputs for Phase 2.1 (Movement and Physics Alignment) wi
 
 - Subphase started.
 - Gate tracker published at `docs/quality/subphase-1.4-qg-report.md`.
+
+## 5. Closure Reference
+
+- Final Subphase 1.4 completion and gate verification are recorded in `docs/quality/subphase-1.4-qg-report.md`.
+- Phase 2 handoff package is published in `docs/quality/phase2-entry-checklist.md` and `docs/quality/phase2-metric-baselines.md`.

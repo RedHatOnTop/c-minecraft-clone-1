@@ -1,0 +1,51 @@
+MSBuild version 17.14.23+b0019275e(.NET Framework)
+
+  glfw.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\_deps\glfw-build\src\Release\glfw3.lib
+  glm.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\_deps\glm-build\glm\Release\glm.lib
+  AppBootstrap.cpp
+  InputController.cpp
+  main.cpp
+  Player.cpp
+  Camera.cpp
+  ChunkMesh.cpp
+  SelectionBox.cpp
+  Shader.cpp
+  Texture.cpp
+  TextureAtlas.cpp
+  FontRenderer.cpp
+  GUIRenderer.cpp
+  HUD.cpp
+  ChunkProvider.cpp
+  WorldPersistence.cpp
+  Generating Code...
+  gl3w.c
+  MinecraftClone189.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\MinecraftClone189.exe
+  Player.cpp
+  Camera.cpp
+  WorldPersistence.cpp
+  test_persistence.cpp
+  Generating Code...
+  gl3w.c
+  tests_data.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\tests_data.exe
+  Player.cpp
+  Camera.cpp
+  WorldPersistence.cpp
+  test_replay.cpp
+  Generating Code...
+  gl3w.c
+  tests_gameplay_smoke.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\tests_gameplay_smoke.exe
+  Player.cpp
+  Camera.cpp
+  WorldPersistence.cpp
+  test_raycast.cpp
+  test_render_perf.cpp
+  Generating Code...
+  gl3w.c
+  tests_render.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\tests_render.exe
+  Player.cpp
+  Camera.cpp
+  WorldPersistence.cpp
+  test_movement.cpp
+  Generating Code...
+  gl3w.c
+  tests_runtime.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\bin\Release\tests_runtime.exe
