@@ -46,4 +46,4 @@ Regressions considered closed for this integration pass:
 ## 5. Residual Risks
 
 - Long-session and performance gates are not in Subphase 1 scope and remain open for later phases.
-- Overall parity score advancement remains below the Subphase 1.3 target threshold and requires additional parity-focused implementation work.
+- Advanced parity gaps remain in visual polish, expanded content breadth, and deeper UX/audio settings behavior.

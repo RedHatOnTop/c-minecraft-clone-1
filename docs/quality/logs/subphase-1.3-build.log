@@ -1,4 +1,4 @@
-MSBuild version 17.14.23+b0019275e(for .NET Framework)
+MSBuild version 17.14.23+b0019275e(.NET Framework)
 
   glfw.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\_deps\glfw-build\src\Release\glfw3.lib
   glm.vcxproj -> C:\Users\jin14\Projects\c-minecraft-clone-1\build\_deps\glm-build\glm\Release\glm.lib

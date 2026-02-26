@@ -54,6 +54,7 @@ if(BUILD_TESTING)
         src/world/WorldPersistence.cpp
         src/world/Chunk.cpp
         src/world/World.cpp
+        src/world/WorldGenerator.cpp
         src/world/Lighting.cpp
         src/world/BlockEntity.cpp
         src/physics/Raycast.cpp
@@ -71,7 +72,7 @@ if(BUILD_TESTING)
         target_include_directories(${target_name} PRIVATE include external tests)
         target_link_libraries(${target_name} PRIVATE glfw gl3w nlohmann_json::nlohmann_json glm::glm)
         if(WIN32)
-            target_link_libraries(${target_name} PRIVATE opengl32)
+            target_link_libraries(${target_name} PRIVATE opengl32 psapi)
         else()
             target_link_libraries(${target_name} PRIVATE GL)
         endif()
@@ -82,16 +83,20 @@ if(BUILD_TESTING)
     add_mc_test_target(tests_data
         tests/test_main_data.cpp
         tests/test_persistence.cpp
+        tests/test_worldgen.cpp
     )
 
     add_mc_test_target(tests_runtime
         tests/test_main_runtime.cpp
         tests/test_inventory.cpp
+        tests/test_movement.cpp
+        tests/test_stability.cpp
     )
 
     add_mc_test_target(tests_render
         tests/test_main_render.cpp
         tests/test_raycast.cpp
+        tests/test_render_perf.cpp
     )
 
     add_mc_test_target(tests_gameplay_smoke

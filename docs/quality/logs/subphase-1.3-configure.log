@@ -49,6 +49,6 @@ CMake Warning at build/_deps/gl3w-src/CMakeLists.txt:98 (export):
 
 
 
--- Configuring done (8.0s)
--- Generating done (0.6s)
+-- Configuring done (6.7s)
+-- Generating done (1.0s)
 -- Build files have been written to: C:/Users/jin14/Projects/c-minecraft-clone-1/build

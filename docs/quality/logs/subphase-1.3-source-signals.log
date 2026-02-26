@@ -1,0 +1,71 @@
+=== Physics + Movement Signals ===
+include/entity/Entity.hpp:14:    bool onGround;
+include/entity/Entity.hpp:19:        : position(pos), velocity(0.0f), dimensions(dim), onGround(false), health(20.0f), removed(false) {}
+include/entity/Entity.hpp:33:    void applyPhysics(float deltaTime, World& world) {
+include/entity/Entity.hpp:78:        onGround = false;
+include/entity/Entity.hpp:87:            onGround = true;
+src/physics/Player.cpp:13:    applyPhysics(deltaTime, world);
+src/physics/Player.cpp:17:    if (onGround && (std::abs(velocity.x) > 0.1f || std::abs(velocity.z) > 0.1f)) {
+src/physics/Player.cpp:38:    float speed = 4.317f; // MC walking speed m/s
+src/physics/Player.cpp:39:    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) speed *= 1.3f; // Sprint
+src/physics/Player.cpp:57:    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && onGround) {
+src/physics/Player.cpp:58:        velocity.y = 8.0f; // Basic jump
+
+=== WorldGen Signals ===
+19:    generateCaves(chunk);
+20:    generateDecorations(chunk);
+28:    FastNoiseLite bioNoise;
+29:    bioNoise.SetSeed(m_seed + 1);
+30:    bioNoise.SetFrequency(0.005f);
+37:            float bioVal = bioNoise.GetNoise(worldX, worldZ);
+43:            if (bioVal > 0.3f) { // Mountains
+46:            } else if (bioVal < -0.3f) { // Plains
+64:                    BlockID topBlock = (bioVal < -0.5f && height < 70) ? Blocks::SAND : Blocks::GRASS;
+67:                    chunk->setBlock(x, y, z, Block(Blocks::WATER));
+76:void WorldGenerator::generateCaves(Chunk* chunk) {
+96:void WorldGenerator::generateDecorations(Chunk* chunk) {
+110:                        generateTree(chunk, x, y + 1, z);
+119:void WorldGenerator::generateTree(Chunk* chunk, int x, int y, int z) {
+
+=== UI + Audio Signals ===
+src/ui/HUD.cpp:26:    renderCrosshair(viewWidth, viewHeight);
+src/ui/HUD.cpp:27:    renderHotbar(player, viewWidth, viewHeight);
+src/ui/HUD.cpp:31:void HUD::renderCrosshair(int viewWidth, int viewHeight) {
+src/ui/HUD.cpp:40:void HUD::renderHotbar(const Player& player, int viewWidth, int viewHeight) {
+src/app/InputController.cpp:135:                ctx.gameMode = GameMode::Paused;
+src/app/InputController.cpp:137:            } else if (ctx.gameMode == GameMode::Paused) {
+src/app/InputController.cpp:138:                ctx.gameMode = GameMode::MainMenu;
+src/app/InputController.cpp:151:            if (ctx.gameMode == GameMode::MainMenu || ctx.gameMode == GameMode::Paused) {
+src/app/InputController.cpp:274:                    SoundManager::playSound("break");
+src/app/InputController.cpp:326:                        SoundManager::playSound("place");
+src/app/AppBootstrap.cpp:151:    SoundManager::loadSound("break", "assets/minecraft/sounds/dig/stone1.ogg");
+src/app/AppBootstrap.cpp:152:    SoundManager::loadSound("place", "assets/minecraft/sounds/dig/stone1.ogg");
+src/app/AppBootstrap.cpp:153:    SoundManager::loadSound("step_stone", "assets/minecraft/sounds/step/stone1.ogg");
+src/app/AppBootstrap.cpp:154:    SoundManager::loadSound("step_grass", "assets/minecraft/sounds/step/grass1.ogg");
+src/app/AppBootstrap.cpp:155:    SoundManager::loadSound("step_dirt", "assets/minecraft/sounds/step/dirt1.ogg");
+src/main.cpp:85:    if (ctx.gameMode == GameMode::MainMenu) {
+src/main.cpp:90:        ctx.font->renderString("Press ENTER to Play", centerX - 130.0f, centerY - 40.0f, 2.0f, glm::vec3(1.0f));
+src/main.cpp:91:        ctx.font->renderString("Press ESC to Quit", centerX - 120.0f, centerY - 10.0f, 2.0f, glm::vec3(1.0f));
+src/main.cpp:92:    } else if (ctx.gameMode == GameMode::Paused) {
+src/main.cpp:96:        ctx.font->renderString("Paused", centerX - 55.0f, centerY - 80.0f, 3.0f, glm::vec3(1.0f));
+src/main.cpp:97:        ctx.font->renderString("Press ENTER to Resume", centerX - 150.0f, centerY - 20.0f, 2.0f, glm::vec3(1.0f));
+src/main.cpp:98:        ctx.font->renderString("Press ESC for Menu/Quit", centerX - 170.0f, centerY + 10.0f, 2.0f, glm::vec3(1.0f));
+
+=== Persistence Signals ===
+16:constexpr uint32_t CHUNK_MAGIC = 0x4B43434D;   // MCCK
+17:constexpr uint32_t PLAYER_MAGIC = 0x4C50434D;  // MCPL
+18:constexpr uint32_t ENTITY_MAGIC = 0x4E45434D;  // MCEN
+138:    if (!writeHeader(out, CHUNK_MAGIC, static_cast<uint16_t>(SaveFormatVersion::V2), 0, payloadLength)) {
+148:LoadResult WorldPersistence::loadChunkV2(std::istream& in, const ChunkFileHeader& header, Chunk& chunk) {
+213:LoadResult WorldPersistence::loadChunkLegacy(std::istream& in, std::streamoff fileSize, Chunk& chunk) {
+292:        header.magic == CHUNK_MAGIC) {
+293:        return loadChunkV2(in, header, chunk);
+298:    return loadChunkLegacy(in, fileSize, chunk);
+301:SaveResult WorldPersistence::savePlayerData(const std::string& worldPath, const Player& player) {
+322:    if (!writeHeader(out, PLAYER_MAGIC, static_cast<uint16_t>(SaveFormatVersion::V2), 0,
+333:LoadResult WorldPersistence::loadPlayerData(const std::string& worldPath, Player& player) {
+340:    if (readHeader(in, header) && header.magic == PLAYER_MAGIC && header.version == static_cast<uint16_t>(SaveFormatVersion::V2)) {
+386:SaveResult WorldPersistence::saveEntities(const std::string& worldPath, const EntityManager& entities) {
+427:    if (!writeHeader(out, ENTITY_MAGIC, static_cast<uint16_t>(SaveFormatVersion::V2), 0,
+438:LoadResult WorldPersistence::loadEntities(const std::string& worldPath, EntityManager& entities) {
+489:    if (readHeader(in, header) && header.magic == ENTITY_MAGIC && header.version == static_cast<uint16_t>(SaveFormatVersion::V2)) {

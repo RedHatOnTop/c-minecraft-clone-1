@@ -1,0 +1,15 @@
+# Subphase 1.3 Parity Score Log - 2026-02-26T20:43:13.2452265+09:00
+Input=docs/quality/phase1-ratings-2026-02-26.csv
+Rows=39
+
+[Domain Scores]
+Domain=A AvgScore0to5=2.125 WeightedScore=9.35
+Domain=B AvgScore0to5=2.4444 WeightedScore=13.69
+Domain=C AvgScore0to5=2 WeightedScore=7.2
+Domain=D AvgScore0to5=2.3333 WeightedScore=7.47
+Domain=E AvgScore0to5=1.8 WeightedScore=2.88
+Domain=F AvgScore0to5=2.8 WeightedScore=4.48
+
+Phase1TotalScore=45.07
+Target=45
+Pass=True

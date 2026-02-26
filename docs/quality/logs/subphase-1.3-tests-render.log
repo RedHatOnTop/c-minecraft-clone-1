@@ -1,0 +1,5 @@
+[tests_render][PASS] Raycast_ZeroDirectionComponent_NoCrash
+[tests_render][PASS] UI_ViewportResize_ProjectionUpdate
+[tests_render][PASS] ChunkMesh_TransparentSort_Stable
+[tests_render][PASS] RenderPerf_TransparentSort_P95Budget
+[tests_render] All tests passed.
