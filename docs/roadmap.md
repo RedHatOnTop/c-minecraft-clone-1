@@ -215,7 +215,7 @@ Completion note:
 - Verification logs are captured under `docs/quality/logs/subphase-1.2-*.log`.
 
 #### Subphase 1.3 - Integration Hardening (2026-03-26 to 2026-04-05)
-Status: In progress (started on February 26, 2026)
+Status: Completed on February 26, 2026 (executed ahead of schedule)
 
 Focus:
 - Stabilize architecture/test changes and close regressions.
@@ -233,7 +233,25 @@ Progress note:
 - Integration verification run is captured in `docs/quality/subphase-1.3-integration-report.md`.
 - Contribution gate policy was published in `docs/quality/contribution-gate-policy.md`.
 - Current gate tracker is published in `docs/quality/subphase-1.3-qg-report.md`.
-- `QG-TEST-1.3.1` and `QG-DOC-1.3.2` are currently passing; `QG-PARITY-1.3.3` remains open.
+- Phase 1 parity re-score is published in `docs/quality/phase1-parity-report-2026-02-26.md` (`45.07 / 100`).
+
+#### Subphase 1.4 - Phase 2 Entry Setup (2026-04-06 to 2026-04-12)
+Status: In progress (started on February 26, 2026)
+
+Focus:
+- Establish handoff artifacts and metric harness baselines required for Phase 2.1 execution.
+
+Deliverables:
+- Phase 2 entry checklist and dependency map.
+- Movement/worldgen metric baseline references packaged for the first Phase 2 iteration.
+
+Quality gates:
+- `QG-TEST-1.4.1`: Movement and worldgen metric harness tests are wired into required CTest targets and passing.
+- `QG-DOC-1.4.2`: Phase 2 handoff checklist is published and linked from roadmap and README.
+- `QG-DOC-1.4.3`: Subphase 1.4 kickoff report and gate tracker are published under `docs/quality/`.
+
+Progress note:
+- Initial kickoff artifacts are published in `docs/quality/subphase-1.4-kickoff.md` and `docs/quality/subphase-1.4-qg-report.md`.
 
 Phase exit criteria:
 - Architecture split is safe to iterate on.

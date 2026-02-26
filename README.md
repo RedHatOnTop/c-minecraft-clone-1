@@ -57,11 +57,14 @@ A high-fidelity Minecraft 1.8.9 clone built from scratch using C++20 and OpenGL 
 - `docs/quality/subphase-0.3-qg-report.md`: Subphase 0.3 quality-gate verification.
 - `docs/quality/subphase-1.1-qg-report.md`: Subphase 1.1 quality-gate verification.
 - `docs/quality/subphase-1.2-qg-report.md`: Subphase 1.2 quality-gate verification.
-- `docs/quality/subphase-1.3-qg-report.md`: Subphase 1.3 gate-tracking report (in progress).
+- `docs/quality/subphase-1.3-qg-report.md`: Subphase 1.3 quality-gate verification.
+- `docs/quality/subphase-1.4-qg-report.md`: Subphase 1.4 gate-tracking report (kickoff state).
 - `docs/quality/architecture-boundary-subphase-1.1.md`: Module dependency and ownership boundary map for Subphase 1.1.
 - `docs/quality/replay-harness-v1.md`: Deterministic replay harness v1 scenario definitions and execution evidence.
 - `docs/quality/subphase-1.3-integration-report.md`: Integration hardening report for Phase 1.3.
+- `docs/quality/phase1-parity-report-2026-02-26.md`: Phase 1 parity re-score and gate decision.
 - `docs/quality/contribution-gate-policy.md`: Pull-request quality gate policy and test-impact requirements.
+- `docs/quality/subphase-1.4-kickoff.md`: Subphase 1.4 kickoff scope and initial work items.
 - `docs/quality/baseline/`: Baseline scenario evidence package (logs, manifests, indexes).
 - `docs/roadmap.md`: Project roadmap and milestone plan.
 - `external/`: Third-party header-only libraries.
