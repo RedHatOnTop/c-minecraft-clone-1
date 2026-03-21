@@ -1,4 +1,5 @@
 #include "physics/Player.hpp"
+#include "physics/PhysicsConstants.hpp"
 #include "util/SoundManager.hpp"
 #include <GLFW/glfw3.h>
 #include <algorithm>
@@ -27,7 +28,7 @@ void Player::update(float deltaTime, World& world) {
     }
 }
 
-void Player::handleInput(GLFWwindow* window, float deltaTime) {
+void Player::handleInput(GLFWwindow* window, float /*deltaTime*/) {
     // Hotbar selection
     for (int i = 0; i < 9; ++i) {
         if (glfwGetKey(window, GLFW_KEY_1 + i) == GLFW_PRESS) {
@@ -35,27 +36,37 @@ void Player::handleInput(GLFWwindow* window, float deltaTime) {
         }
     }
 
-    float speed = 4.317f; // MC walking speed m/s
-    if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) speed *= 1.3f; // Sprint
+    // Determine movement mode speed (blocks/tick)
+    bool sprinting = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS;
+    float modeSpeed = sprinting
+        ? (PhysicsConstants::SPRINT_SPEED / PhysicsConstants::TICK_RATE)
+        : (PhysicsConstants::WALK_SPEED / PhysicsConstants::TICK_RATE);
 
+    // Build input direction from WASD
     glm::vec3 direction(0.0f);
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) direction += camera.Front;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) direction -= camera.Front;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) direction -= camera.Right;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) direction += camera.Right;
 
-    direction.y = 0; // Keep movement horizontal
-    if (glm::length(direction) > 0) {
-        direction = glm::normalize(direction);
-        velocity.x = direction.x * speed;
-        velocity.z = direction.z * speed;
-    } else {
-        velocity.x = 0;
-        velocity.z = 0;
-    }
+    direction.y = 0.0f; // Keep movement horizontal
 
+    if (glm::length(direction) > 0.0f) {
+        // Diagonal normalization: normalize input direction vector
+        direction = glm::normalize(direction);
+
+        // Acceleration-based movement (MC 1.8.9 moveFlying model)
+        float accel = onGround ? PhysicsConstants::GROUND_ACCEL : PhysicsConstants::AIR_ACCEL;
+
+        // Apply acceleration scaled by mode speed
+        velocity.x += direction.x * accel * modeSpeed;
+        velocity.z += direction.z * accel * modeSpeed;
+    }
+    // No else: friction in applyPhysics handles deceleration
+
+    // Jump (MC 1.8.9: 0.42 blocks/tick initial upward velocity)
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && onGround) {
-        velocity.y = 8.0f; // Basic jump
+        velocity.y = PhysicsConstants::JUMP_VELOCITY;
     }
 }
 

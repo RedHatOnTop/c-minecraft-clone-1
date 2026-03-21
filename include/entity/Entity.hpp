@@ -2,8 +2,10 @@
 
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 #include <glm/glm.hpp>
 #include "physics/AABB.hpp"
+#include "physics/PhysicsConstants.hpp"
 #include "world/World.hpp"
 
 class Entity {
@@ -30,7 +32,20 @@ public:
     }
 
 protected:
-    void applyPhysics(float deltaTime, World& world) {
+    // Get block slipperiness for the block the entity is standing on
+    float getGroundSlipperiness(World& world) const {
+        int bx = (int)std::floor(position.x);
+        int by = (int)std::floor(position.y - 0.1f);
+        int bz = (int)std::floor(position.z);
+        BlockID blockBelow = world.getBlock(bx, by, bz).id;
+        // Ice has special slipperiness; all other blocks use default
+        if (blockBelow == Blocks::ICE) {
+            return PhysicsConstants::ICE_SLIPPERINESS;
+        }
+        return PhysicsConstants::GROUND_FRICTION;
+    }
+
+    void applyPhysics(float /*deltaTime*/, World& world) {
         auto isSolid = [](BlockID id) {
             return id != Blocks::AIR && id != Blocks::WATER && id != Blocks::LAVA;
         };
@@ -74,17 +89,41 @@ protected:
             }
         };
 
-        velocity.y -= 24.0f * deltaTime;
+        // Clamp NaN/Inf velocity to zero
+        for (int i = 0; i < 3; ++i) {
+            if (std::isnan(velocity[i]) || std::isinf(velocity[i])) {
+                std::cerr << "Warning: NaN/Inf velocity on axis " << i << ", clamping to zero\n";
+                velocity[i] = 0.0f;
+            }
+        }
+
+        // Per-tick gravity (MC 1.8.9: subtract 0.08 blocks/tick²)
+        velocity.y -= PhysicsConstants::GRAVITY;
+
+        // Terminal velocity cap (downward)
+        if (velocity.y < -PhysicsConstants::TERMINAL_VEL) {
+            velocity.y = -PhysicsConstants::TERMINAL_VEL;
+        }
+
         onGround = false;
 
-        glm::vec3 delta = velocity * deltaTime;
-        moveAxis(0, delta.x);
-        moveAxis(2, delta.z);
-
+        // Collision resolution order: Y, X, Z (MC 1.8.9)
         float beforeY = position.y;
-        moveAxis(1, delta.y);
-        if (delta.y < 0.0f && position.y == beforeY) {
+        moveAxis(1, velocity.y); // Y first
+        if (velocity.y < 0.0f && position.y == beforeY) {
             onGround = true;
+        }
+        moveAxis(0, velocity.x); // X second
+        moveAxis(2, velocity.z); // Z third
+
+        // Per-tick friction (applied after movement)
+        if (onGround) {
+            float slipperiness = getGroundSlipperiness(world);
+            velocity.x *= slipperiness * PhysicsConstants::AIR_DRAG;
+            velocity.z *= slipperiness * PhysicsConstants::AIR_DRAG;
+        } else {
+            velocity.x *= PhysicsConstants::AIR_DRAG;
+            velocity.z *= PhysicsConstants::AIR_DRAG;
         }
     }
 };

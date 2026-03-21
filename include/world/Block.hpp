@@ -21,6 +21,7 @@ namespace Blocks {
     const BlockID LEAVES = 18;
     const BlockID CHEST = 54;
     const BlockID FURNACE = 61;
+    const BlockID ICE = 79;
 }
 
 struct Block {

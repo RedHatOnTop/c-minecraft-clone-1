@@ -62,6 +62,11 @@ if(BUILD_TESTING)
         src/render/Camera.cpp
         src/item/Inventory.cpp
         src/util/SoundManager.cpp
+        src/mechanics/BreakDurationCalculator.cpp
+        src/mechanics/PlacementValidator.cpp
+        src/mechanics/SlotActionProcessor.cpp
+        src/mechanics/RecipeRegistry.cpp
+        src/mechanics/SmeltingRecipeRegistry.cpp
     )
 
     function(add_mc_test_target target_name)
@@ -91,7 +96,13 @@ if(BUILD_TESTING)
         tests/test_inventory.cpp
         tests/test_movement.cpp
         tests/test_stability.cpp
+        tests/test_break_duration.cpp
+        tests/test_placement.cpp
+        tests/test_slot_action.cpp
+        tests/test_recipe.cpp
+        tests/test_smelting.cpp
     )
+    target_link_libraries(tests_runtime PRIVATE rapidcheck)
 
     add_mc_test_target(tests_render
         tests/test_main_render.cpp
@@ -102,5 +113,8 @@ if(BUILD_TESTING)
     add_mc_test_target(tests_gameplay_smoke
         tests/test_main_gameplay_smoke.cpp
         tests/test_replay.cpp
+        tests/test_physics_parity.cpp
+        tests/test_survival_scenario.cpp
     )
+    target_link_libraries(tests_gameplay_smoke PRIVATE rapidcheck)
 endif()

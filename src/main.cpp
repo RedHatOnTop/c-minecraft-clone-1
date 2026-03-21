@@ -14,6 +14,7 @@
 #include "entity/Mob.hpp"
 #include "item/ItemStack.hpp"
 #include "physics/AABB.hpp"
+#include "physics/PhysicsConstants.hpp"
 #include "physics/Raycast.hpp"
 #include "util/SoundManager.hpp"
 
@@ -35,12 +36,29 @@ static void updateGame(GameContext& ctx, GLFWwindow* window) {
     app::ensureOpenedContainerValid(ctx, window);
 
     if (ctx.gameMode == GameMode::Playing) {
-        if (!app::isUIOpen(ctx)) {
-            ctx.player->handleInput(window, ctx.deltaTime);
-        }
-        ctx.player->update(ctx.deltaTime, ctx.world);
-        ctx.entityManager.update(ctx.deltaTime, ctx.world);
+        // Accumulate real time into the tick accumulator
+        ctx.tickAccumulator += ctx.deltaTime;
 
+        // Cap accumulator to prevent physics explosion on long frame stalls
+        const float maxAccum = PhysicsConstants::MAX_TICKS_PER_FRAME * PhysicsConstants::TICK_DURATION;
+        if (ctx.tickAccumulator > maxAccum) {
+            ctx.tickAccumulator = maxAccum;
+        }
+
+        // Process input once per frame (reads current key state)
+        if (!app::isUIOpen(ctx)) {
+            ctx.player->handleInput(window, PhysicsConstants::TICK_DURATION);
+        }
+
+        // Step physics in fixed 1/20s increments
+        while (ctx.tickAccumulator >= PhysicsConstants::TICK_DURATION) {
+            ctx.player->update(PhysicsConstants::TICK_DURATION, ctx.world);
+            ctx.entityManager.update(PhysicsConstants::TICK_DURATION, ctx.world);
+
+            ctx.tickAccumulator -= PhysicsConstants::TICK_DURATION;
+        }
+
+        // Item pickup (runs per frame, not per tick — lightweight check)
         AABB playerBox = ctx.player->getAABB();
         for (auto& e : ctx.entityManager.getEntitiesMutable()) {
             ItemEntity* item = dynamic_cast<ItemEntity*>(e.get());

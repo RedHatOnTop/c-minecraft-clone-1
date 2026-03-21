@@ -29,6 +29,17 @@ out/
 external/*
 !external/CMakeLists.txt
 
+# Asset files — models and textures
+assets/**/*.png
+assets/**/*.jpg
+assets/**/*.jpeg
+assets/**/*.bmp
+assets/**/*.tga
+assets/**/*.obj
+assets/**/*.fbx
+assets/**/*.gltf
+assets/**/*.glb
+
 # Optional local asset packs
 assets/sample-texturepack/
 assets/simple-texturepack/

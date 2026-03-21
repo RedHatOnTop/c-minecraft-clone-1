@@ -62,6 +62,9 @@ struct GameContext {
     float fpsTimer = 0.0f;
     int currentFPS = 0;
 
+    // Fixed-tick accumulator for deterministic physics (1/20s per tick)
+    float tickAccumulator = 0.0f;
+
     bool escDown = false;
     bool enterDown = false;
     bool eDown = false;
